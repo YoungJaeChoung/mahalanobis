@@ -35,16 +35,16 @@ class MahalanobisLayer(nn.Module):
     def get_cov(self, x):
         """
         Calculates covariance matrix 
-        (1/(dimension - 1)) * Sum((X-mu)^T * (x - mu))
+        (1/(n - 1)) * Sum((X-mu)^T * (x - mu))
 
         Reference 
         ---------
         - https://en.wikipedia.org/wiki/Covariance
         """
-        dimension = x.size(0)
+        n = x.size(0)
         mu = self.get_mu(x)
         delta = x - mu
-        cov = (1/(dimension-1)) * delta.t().mm(delta)
+        cov = (1/(n-1)) * delta.t().mm(delta)
         return cov 
 
     def get_inverse_cov(self, cov):
